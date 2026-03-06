@@ -25,11 +25,22 @@ export default function HomePage() {
           { text: "GITHUB", href: siteLinks.github, gradient: "linear-gradient(135deg, #ffffff, #cccccc)" },
         ]}
         quoteLines={[
-          "Samuel Swedberg",
-          "Computer engineering portfolio",
-          "Embedded systems, hardware, and firmware.",
-          "North Dakota State University graduate.",
-          "Building responsive products from CAD to code.",
+          "Computer Engineer",
+          "North Dakota State University graduate",
+          "Jack of all trades, master of the ones that matter",
+          "I go wherever curiosity and hard problems take me",
+          <>
+            Currently building{" "}
+            <Link
+              href="https://rideforge.app"
+              target="_blank"
+              rel="noreferrer"
+              className="hero-nav-shimmer inline-block bg-[linear-gradient(90deg,_rgb(244_114_182)_0%,_rgb(34_211_238)_100%)] bg-[length:19ch_100%] bg-center bg-clip-text font-semibold text-transparent"
+            >
+              Forge
+            </Link>
+            , an indoor cycling app
+          </>,
           "Projects, links, and case studies below.",
         ]}
         siteLabel="samuelswedberg.com"

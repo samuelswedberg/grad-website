@@ -223,7 +223,7 @@ export type HeroNavLink = {
 export interface RevolutionHeroProps {
   eyebrow?: string[]
   navLinks?: HeroNavLink[]
-  quoteLines?: string[]
+  quoteLines?: React.ReactNode[]
   siteLabel?: string
 }
 
@@ -356,6 +356,9 @@ export default function RevolutionHero({
   )
 
   const resolvedNavLinks = navLinks ?? defaultNavLinks
+  const primaryQuoteLines = quoteLines.slice(0, 2)
+  const secondaryQuoteLines = quoteLines.slice(2, -2)
+  const closingQuoteLines = quoteLines.slice(-2)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -526,18 +529,24 @@ export default function RevolutionHero({
           </nav>
 
           <div className="max-w-xs text-right text-xs text-gray-300 md:text-sm" style={{ fontFamily: '"Segoe UI"' }}>
-            {quoteLines.slice(0, 2).map((line) => (
-              <p key={line} className="mb-2 font-semibold text-white">
+            {primaryQuoteLines.map((line, index) => (
+              <p key={index} className="mb-2 font-semibold text-white">
                 {line}
               </p>
             ))}
-            {quoteLines.slice(2, 5).map((line) => (
-              <p key={line} className="mb-2 text-gray-400">
+            {secondaryQuoteLines.map((line, index) => (
+              <p key={index} className="mb-2 text-gray-400">
                 {line}
               </p>
             ))}
-            <p className="mb-6 text-gray-400">{quoteLines[5] ?? ""}</p>
-            <p className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text font-bold text-transparent">
+            <div className="mt-4">
+              {closingQuoteLines.map((line, index) => (
+                <p key={index} className="mb-2 text-gray-400">
+                  {line}
+                </p>
+              ))}
+            </div>
+            <p className="mt-6 bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text font-bold text-transparent">
               {siteLabel}
             </p>
           </div>
