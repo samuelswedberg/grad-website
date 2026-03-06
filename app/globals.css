@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --color-canvas: #050b14;
+  --color-panel: rgba(9, 17, 30, 0.78);
+  --color-panel-strong: rgba(14, 27, 46, 0.92);
+  --color-ink: #f5f7fb;
+  --color-muted: #9cabbe;
+  --color-accent: #6ff3ff;
+  --color-warm: #ff8d4d;
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-sans: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans), sans-serif;
+  color: var(--color-ink);
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(111, 243, 255, 0.24);
+  color: white;
+}
+
+.page-shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1120px;
+  padding-inline: 1.5rem;
+}
+
+.panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-panel);
+  box-shadow: 0 24px 120px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(24px);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.section-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.4rem, 4vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prose-copy {
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
+.content-rail {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
