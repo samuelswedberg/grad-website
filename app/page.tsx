@@ -11,13 +11,15 @@ export default function HomePage() {
   return (
     <div className="space-y-14 pb-20 md:space-y-20">
       <RevolutionHero
-        eyebrow={["Samuel Swedberg", "Computer Engineer"]}
+        eyebrow={["Minimizing the friction between a",  "brilliant idea and its physical realization"]}
         navLinks={[
           { text: "PROJECTS", href: "/projects", gradient: "linear-gradient(135deg, #ffffff, #cccccc)" },
           {
             text: "SIM SYSTEM",
             href: "/projects/sim-racing-system",
-            gradient: "linear-gradient(135deg, #ffffff, #ffb26b)",
+            gradient:
+              "linear-gradient(135deg, #f7f3ea 0%, #f3e7cf 18%, #e9c98e 50%, #f1ddba 78%, #fbf7ef 100%)",
+            shimmer: true,
           },
           { text: "ABOUT", href: "/about", gradient: "linear-gradient(135deg, #ffffff, #cccccc)" },
           { text: "GITHUB", href: siteLinks.github, gradient: "linear-gradient(135deg, #ffffff, #cccccc)" },

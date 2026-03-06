@@ -217,6 +217,7 @@ export type HeroNavLink = {
   text: string
   href: string
   gradient: string
+  shimmer?: boolean
 }
 
 export interface RevolutionHeroProps {
@@ -230,9 +231,10 @@ interface NavLinkProps {
   children: React.ReactNode
   href: string
   gradient: string
+  shimmer?: boolean
 }
 
-function NavLink({ children, href, gradient }: NavLinkProps) {
+function NavLink({ children, href, gradient, shimmer = false }: NavLinkProps) {
   const linkRef = useRef<HTMLAnchorElement>(null)
   const [isHovered, setIsHovered] = useState(false)
   const isExternal = href.startsWith("http")
@@ -291,6 +293,8 @@ function NavLink({ children, href, gradient }: NavLinkProps) {
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
       className={`block mb-5 cursor-pointer text-[2.7rem] font-black leading-[0.92] tracking-[0.02em] transition-all duration-300 transform-gpu md:mb-6 md:text-[4.35rem] lg:text-[6.8rem] ${
+        shimmer ? "hero-nav-shimmer" : ""
+      } ${
         isHovered ? "z-10" : ""
       }`}
       style={{
@@ -299,9 +303,15 @@ function NavLink({ children, href, gradient }: NavLinkProps) {
         WebkitBackgroundClip: "text",
         backgroundClip: "text",
         color: "transparent",
+        backgroundSize: shimmer ? "180% 180%" : undefined,
+        backgroundPosition: shimmer ? "50% 50%" : undefined,
         textShadow: isHovered
-          ? "0 0 18px rgba(255,255,255,0.12), 0.6px 0 0 rgba(255,255,255,0.92), -0.6px 0 0 rgba(255,255,255,0.92)"
-          : "0.45px 0 0 rgba(255,255,255,0.86), -0.45px 0 0 rgba(255,255,255,0.86)",
+          ? shimmer
+            ? "0 0 16px rgba(255,200,110,0.18), 0.45px 0 0 rgba(255,224,164,0.8), -0.45px 0 0 rgba(255,224,164,0.8)"
+            : "0 0 18px rgba(255,255,255,0.12), 0.6px 0 0 rgba(255,255,255,0.92), -0.6px 0 0 rgba(255,255,255,0.92)"
+          : shimmer
+            ? "0.38px 0 0 rgba(255,214,148,0.74), -0.38px 0 0 rgba(255,214,148,0.74)"
+            : "0.45px 0 0 rgba(255,255,255,0.86), -0.45px 0 0 rgba(255,255,255,0.86)",
       }}
     >
       {children}
@@ -509,7 +519,7 @@ export default function RevolutionHero({
         <div className="flex flex-col justify-between items-end md:flex-row">
           <nav className="mb-8 text-left md:mb-0">
             {resolvedNavLinks.map((link) => (
-              <NavLink key={link.text} href={link.href} gradient={link.gradient}>
+              <NavLink key={link.text} href={link.href} gradient={link.gradient} shimmer={link.shimmer}>
                 {link.text}
               </NavLink>
             ))}

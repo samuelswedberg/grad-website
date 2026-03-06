@@ -80,3 +80,24 @@ a {
   content-visibility: auto;
   contain-intrinsic-size: 1px 700px;
 }
+
+@keyframes hero-nav-shimmer {
+  0% {
+    background-position: 50% 50%;
+    filter: brightness(0.99) saturate(0.95);
+  }
+
+  50% {
+    background-position: 50% 50%;
+    filter: brightness(1.06) saturate(1.08);
+  }
+
+  100% {
+    background-position: 50% 50%;
+    filter: brightness(0.99) saturate(0.95);
+  }
+}
+
+.hero-nav-shimmer {
+  animation: hero-nav-shimmer 5.8s ease-in-out infinite;
+}
