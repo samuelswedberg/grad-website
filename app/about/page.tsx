@@ -19,24 +19,40 @@ export const metadata: Metadata = {
 
 const experience = [
   {
-    title: "Independent Product Builder",
-    years: "CURRENT",
+    title: "Automation Programmer",
+    company: "Körber Pharma",
+    location: "Fargo, North Dakota, United States · On-site",
+    type: "Full-time",
+    years: "Jun 2025 - Present",
     description:
-      "Building product concepts like Forge while focusing on interfaces, telemetry, and systems that make physical hardware feel immediate and alive."
+      "Working on industrial automation systems in a pharmaceutical manufacturing environment with an emphasis on controls, production logic, and reliable plant-floor execution."
   },
   {
-    title: "Industrial Automation",
-    years: "RECENT WORK",
+    title: "Electrical Engineering Intern",
+    company: "Körber Pharma",
+    location: "Fargo, North Dakota, United States · On-site",
+    type: "Internship",
+    years: "May 2024 - May 2025",
     description:
-      "Developed manufacturing software, audit tooling, robotics utilities, and controls-oriented systems where reliability matters more than presentation alone."
+      "Supported automation and electrical engineering work while building experience with manufacturing systems, controls-oriented development, and production equipment."
   },
   {
-    title: "Computer Engineering",
-    years: "FOUNDATION",
+    title: "Service Shop Technician",
+    company: "Scheels",
+    location: "Moorhead, Minnesota, United States · On-site",
+    type: "Part-time",
+    years: "Jul 2021 - Apr 2025",
     description:
-      "Graduated from North Dakota State University with a focus on embedded systems, rapid prototyping, PCB design, and full-stack problem solving across hardware and software."
+      "Provided maintenance and assembly of customer and store equipment, including bicycles, snowboards, skis, hockey skates and sticks, baseball gloves and bats, golf clubs, and racquet sports equipment."
   }
 ]
+
+const education = {
+  school: "North Dakota State University",
+  degree: "Bachelor of Science in Computer Engineering",
+  years: "Aug 2021 - May 2025",
+  detail: "Grounded in embedded systems, low-level programming, electronics, and full-stack engineering."
+}
 
 const tickerTools = [...tools, "React", "Rust", ...tools, "React", "Rust"]
 
@@ -73,7 +89,7 @@ export default function AboutPage() {
           <div className={styles.portraitColumn}>
             <div className={styles.portraitFrame}>
               <Image
-                src="/media/linkedin.jpg"
+                src="/media/upscaledlinkedin.png"
                 alt="Samuel Swedberg portrait"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -116,15 +132,31 @@ export default function AboutPage() {
           <div className={styles.experienceContentColumn}>
             <div className={styles.timeline}>
               {experience.map((item) => (
-                <div key={item.title} className={styles.timelineItem}>
+                <div key={`${item.company}-${item.title}`} className={styles.timelineItem}>
                   <div className={styles.gradientDot} aria-hidden="true" />
                   <div className={styles.timelineHeader}>
-                    <h4>{item.title}</h4>
+                    <div className={styles.timelineHeadingBlock}>
+                      <h4>{item.title}</h4>
+                      <p className={styles.timelineCompany}>{item.company}</p>
+                    </div>
                     <span>{item.years}</span>
                   </div>
+                  <p className={styles.timelineMeta}>
+                    {item.type} · {item.location}
+                  </p>
                   <p>{item.description}</p>
                 </div>
               ))}
+            </div>
+
+            <div className={styles.focusAreaBlock}>
+              <h3 className={styles.sectionLabel}>Education</h3>
+              <div className={styles.educationCard}>
+                <h4>{education.school}</h4>
+                <p className={styles.educationDegree}>{education.degree}</p>
+                <p className={styles.educationYears}>{education.years}</p>
+                <p className={styles.educationDetail}>{education.detail}</p>
+              </div>
             </div>
 
             <div className={styles.focusAreaBlock}>

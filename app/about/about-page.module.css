@@ -281,15 +281,35 @@
   gap: 0.5rem;
 }
 
+.timelineHeadingBlock {
+  display: grid;
+  gap: 0.35rem;
+}
+
 .timelineHeader h4 {
   font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 700;
   text-transform: uppercase;
 }
 
+.timelineCompany {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgb(209 213 219);
+}
+
 .timelineHeader span {
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.75rem;
+  color: rgb(107 114 128);
+}
+
+.timelineMeta {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
   color: rgb(107 114 128);
 }
 
@@ -303,6 +323,37 @@
 .focusAreaBlock {
   display: grid;
   gap: 1.5rem;
+}
+
+.educationCard {
+  display: grid;
+  gap: 0.5rem;
+  border-left: 1px solid rgba(232, 213, 181, 0.4);
+  padding-left: 1rem;
+}
+
+.educationCard h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.educationDegree {
+  font-size: 1.05rem;
+  color: rgb(209 213 219);
+}
+
+.educationYears {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.8rem;
+  color: rgb(107 114 128);
+}
+
+.educationDetail {
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgb(156 163 175);
 }
 
 .focusAreaList {
