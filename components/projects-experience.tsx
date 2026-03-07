@@ -30,11 +30,50 @@ type ProjectEntry = {
   gallery?: { src: string; alt: string }[]
   heroImage?: string
   links?: { label: string; href: string }[]
+  cta?: { label: string; href: string; description: string }
 }
 
 const simRacingProject = portfolioProjects[0]
 
 export const projects: ProjectEntry[] = [
+  {
+    id: "forge",
+    title: "Forge",
+    subtitle: "Indoor cycling race simulator",
+    year: "2026",
+    role: "Founder",
+    tags: ["Rust", "Tauri", "Bluetooth LE", "TypeScript"],
+    description:
+      "Sim racing for cycling. An indoor race simulator with a broadcast telemetry UI, AI opponents with dynamic race strategy, and a one-time purchase model in a market built on subscriptions.",
+    overview:
+      "The last cycling app you'll ever buy. Forge is an indoor cycling race simulator that replaces the 3D virtual world with a broadcast-style race telemetry interface — lightweight, data-dense, and built for cyclists who care more about the competition than the scenery.",
+    challenge: [
+      "3D virtual worlds don't drive engagement — riders in every major cycling app watch Netflix on a second screen. The visuals aren't the hook. The competition is. But no app has fully committed to that premise: building a sim racing experience for cycling where the physics, the opponents, and the data are the product.",
+      "The market is also broken by economics. Every serious tool charges $18–20 per month indefinitely — whether you race online or not, whether you use the social features or not, whether you even ride that month or not. The result is that cyclists either overpay for features they don't use, or churn off entirely. There was no product that charged you only for what you actually needed."
+    ],
+    solution: [
+      "Forge's core is a physics-accurate race simulation engine written in Rust, running entirely locally with no server dependency. Races support 50–200 AI opponents, each with distinct personality profiles — attackers, climbers, wheel-suckers — that make strategic decisions in real time: surges, drafts, and late-race attacks.",
+      "The interface is a broadcast-style race telemetry overlay, not a 3D world. Power, cadence, gap to front, sector splits, and live positional data are all surfaced in a high-contrast, low-latency UI built with Tauri. The app connects to any FTMS-enabled smart trainer over Bluetooth LE, reading power and cadence while broadcasting resistance targets in real time.",
+      "Multiplayer supports up to 200 riders with proximity culling and group summarization to keep the simulation tractable. AI backfill ensures races always feel full — even at 3 AM or during early growth. Online infrastructure has real costs, so multiplayer and live AI matchmaking are gated behind Forge Pro, an optional subscription. If you never want to race online, you never pay monthly — full offline racing is yours with a single purchase, forever."
+    ],
+    outcome: [
+      "Currently in active development. The simulation engine, BLE trainer integration, and telemetry UI are the current focus before expanding to multiplayer infrastructure.",
+      "The model is built around paying for what you use. The core app is a one-time purchase — full offline racing, AI opponents, and all local features included. Forge Pro is an optional subscription that unlocks online multiplayer and live AI matchmaking, the only features that require running infrastructure. Unlike every competitor, if you don't want online racing, you don't pay monthly. Ever."
+    ],
+    cta: {
+      label: "rideforge.app",
+      href: "https://rideforge.app",
+      description: "Currently in development — follow along."
+    },
+    bullets: [
+      "AI opponents with dynamic race strategy — surges, attacks, drafting — not pace bots.",
+      "Broadcast-style race telemetry UI: data-dense, GPU-free, visually striking.",
+      "Full offline racing with one-time purchase — no subscription required.",
+      "Forge Pro optional subscription for online multiplayer and live AI matchmaking only.",
+      "Multiplayer with AI backfill so races always feel full.",
+      "Pay for what you use — offline racing is one-time, online is opt-in."
+    ]
+  },
   {
     id: simRacingProject.slug,
     title: simRacingProject.title,
@@ -69,35 +108,6 @@ export const projects: ProjectEntry[] = [
       { value: "USB HID", label: "PC Interface" }
     ],
     bullets: simRacingProject.highlights
-  },
-  {
-    id: "forge",
-    title: "Forge",
-    subtitle: "Indoor Cycling & Training App",
-    year: "2026",
-    role: "Lead Engineer & Design",
-    tags: ["React Native", "Bluetooth LE", "Node.js", "Postgres"],
-    description:
-      "Currently building Forge. An application that connects to smart trainers via Bluetooth to control resistance based on virtual terrain gradients.",
-    overview:
-      "Cycling indoors should not feel like staring at a spreadsheet. Forge brings the road inside.",
-    challenge: [
-      "Most trainer software either overwhelms the rider with noisy metrics or strips the experience down so far that it loses the feel of real training.",
-      "The core problem was making live resistance control, rider telemetry, and session structure feel immediate rather than clinical."
-    ],
-    solution: [
-      "Forge connects directly to FTMS-enabled smart trainers over Bluetooth Low Energy, reading power and cadence while broadcasting target resistance values in real time.",
-      "The interface stays deliberately restrained, surfacing only the metrics that matter for interval work and endurance pacing."
-    ],
-    outcome: [
-      "The product direction is aimed at a cleaner indoor training loop with less friction between workout intent and physical feedback.",
-      "It is designed to scale from solo rides to structured plans and comparative ghost-rider sessions."
-    ],
-    bullets: [
-      "Real-time Bluetooth Low Energy communication.",
-      "Adaptive training plans that adjust to user fatigue.",
-      "Social leaderboards and ghost-rider functionality."
-    ]
   },
 ]
 
@@ -268,15 +278,27 @@ export function ProjectDetail({
             priority
           />
           <div className={styles.heroImageOverlay} />
-          <div className={styles.caseStudyBadge}>Case Study Visualization</div>
+          {/* <div className={styles.caseStudyBadge}>Case Study Visualization</div> */}
         </div>
+      ) : project.cta ? (
+        <a
+          href={project.cta.href}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.ctaFrame}
+        >
+          <div className={styles.caseStudyGradient} />
+          <div className={styles.ctaContent}>
+            <span className={styles.ctaDescription}>{project.cta.description}</span>
+            <span className={styles.ctaLabel}>{project.cta.label} ↗</span>
+          </div>
+        </a>
       ) : (
         <div className={styles.caseStudyFrame}>
           <div className={styles.caseStudyGradient} />
           <div className={styles.caseStudyLineTop} />
           <div className={styles.caseStudyLineBottom} />
           <div className={styles.caseStudyCircle} />
-          <div className={styles.caseStudyBadge}>Case Study Visualization</div>
         </div>
       )}
 

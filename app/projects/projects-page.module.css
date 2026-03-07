@@ -406,6 +406,54 @@
   opacity: 0.6;
 }
 
+.ctaFrame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6rem;
+  height: 55vh;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0a0a0f;
+  text-decoration: none;
+  transition: border-color 0.3s ease;
+}
+
+.ctaFrame:hover {
+  border-color: var(--color-accent);
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.ctaDescription {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgb(107 114 128);
+}
+
+.ctaLabel {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--color-accent);
+  transition: color 0.3s ease;
+}
+
+.ctaFrame:hover .ctaLabel {
+  color: #ffffff;
+}
+
 .caseStudyFrame {
   position: relative;
   margin-bottom: 6rem;
