@@ -1,8 +1,17 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { siteLinks } from "@/lib/site-data"
 
 export function SiteFooter() {
+  const pathname = usePathname()
+
+  if (pathname === "/") {
+    return null
+  }
+
   return (
     <footer className="border-t border-white/8 px-6 py-10">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 text-sm text-[var(--color-muted)] md:flex-row md:items-end md:justify-between">

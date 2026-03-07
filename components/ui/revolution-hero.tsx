@@ -356,8 +356,8 @@ export default function RevolutionHero({
   )
 
   const resolvedNavLinks = navLinks ?? defaultNavLinks
-  const primaryQuoteLines = quoteLines.slice(0, 2)
-  const secondaryQuoteLines = quoteLines.slice(2, -2)
+  const primaryQuoteLines = quoteLines.slice(0, 1)
+  const secondaryQuoteLines = quoteLines.slice(1, -2)
   const closingQuoteLines = quoteLines.slice(-2)
 
   useEffect(() => {
