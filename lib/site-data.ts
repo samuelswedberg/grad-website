@@ -50,19 +50,25 @@ export const projects: Project[] = [
       "USB game controller support for use with Windows racing titles"
     ],
     gallery: [
-      { src: "/media/poster.png", alt: "Senior design expo poster" },
       { src: "/media/sim-wheel.png", alt: "Sim racing system overview" },
-      { src: "/media/inside.png", alt: "Sim racing system internal assembly" },
+      { src: "/media/inside.png", alt: "Internal wheelbase assembly" },
       { src: "/media/pcbwb.png", alt: "Wheelbase PCB" },
       { src: "/media/pcbsw.png", alt: "Steering wheel PCB" },
       { src: "/media/pcbpdl.png", alt: "Pedal PCB" },
-      { src: "/media/cad.png", alt: "CAD render" }
+      { src: "/media/cad.png", alt: "CAD render" },
+      { src: "/media/sim-photo-1.png", alt: "Final assembled system" },
+      { src: "/media/sim-photo-2.png", alt: "Steering wheel front view" },
+      { src: "/media/sim-photo-3.png", alt: "Steering wheel rear view" },
+      { src: "/media/sim-photo-4.png", alt: "Wheelbase assembly" },
+      { src: "/media/sim-photo-5.png", alt: "Pedal set" },
+      { src: "/media/sim-photo-6.png", alt: "Full system setup" },
+      { src: "/media/sim-photo-7.png", alt: "System in use" }
     ],
     technicalNotes: [
       "The wheelbase acts as the central hub, handling force feedback, USB communication, and inter-device messaging.",
       "The steering wheel receives telemetry, renders RPM and gear data, and sends user input back over CAN.",
       "The pedals report throttle, brake, and clutch values to the wheelbase for inclusion in the HID report.",
-      "A Python bridge on the PC reads Assetto Corsa telemetry from shared memory and forwards useful values to the hardware."
+      "A Python bridge on the PC reads Assetto Corsa telemetry from shared memory and forwards useful values to the hardware over USB OTG."
     ]
   }
 ]

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 
 import { projects as portfolioProjects, siteLinks } from "@/lib/site-data"
@@ -26,6 +27,9 @@ type ProjectEntry = {
   outcome: string[]
   bullets?: string[]
   metrics?: ProjectMetric[]
+  gallery?: { src: string; alt: string }[]
+  heroImage?: string
+  links?: { label: string; href: string }[]
 }
 
 const simRacingProject = portfolioProjects[0]
@@ -35,23 +39,34 @@ export const projects: ProjectEntry[] = [
     id: simRacingProject.slug,
     title: simRacingProject.title,
     subtitle: simRacingProject.eyebrow,
-    year: "2024-2025",
+    year: "2024–2025",
     role: simRacingProject.status,
     tags: simRacingProject.stack,
     description: simRacingProject.summary,
-    overview: simRacingProject.summary,
+    heroImage: simRacingProject.heroImage,
+    gallery: simRacingProject.gallery,
+    links: simRacingProject.links,
+    overview:
+      "Designed and built as a year-long senior capstone at NDSU, this project spans three custom PCBs, two microcontroller platforms, a real-time operating system, and a PC-side telemetry bridge — all integrated into a working force feedback sim racing system.",
     challenge: [
-      "The project was not just a steering wheel. It had to behave like a complete racing control system with force feedback, live telemetry, pedal input, and low-latency communication between multiple custom-built devices.",
-      "That meant solving firmware, mechanical packaging, USB controller behavior, and inter-device messaging as one integrated product rather than a collection of disconnected prototypes."
+      "The goal was to build something that behaves like a finished product, not a prototype: responsive under load, modular across devices, and durable enough to actually race with.",
+      "Force feedback steering wheels exist commercially, but building one from scratch means solving every layer at once: motor dynamics, embedded communication, USB HID enumeration, live telemetry, and PCB layout — all as one integrated product rather than a collection of disconnected prototypes.",
+      "The hardest constraint was keeping the full signal chain tight. From steering wheel input to USB HID report, from Assetto Corsa telemetry data to RPM lighting on the wheel — every link in the system had to be fast and reliable enough to feel immediate in real racing conditions."
     ],
     solution: [
-      simRacingProject.technicalNotes[0],
-      simRacingProject.technicalNotes[1],
-      simRacingProject.technicalNotes[2]
+      "The wheelbase runs an STM32F446 with FreeRTOS managing concurrent tasks: a closed-loop motor control loop driving a belt-driven DC motor through a BTS7960B H-bridge, a CAN bus handler relaying live telemetry to the steering wheel, and a USB composite driver presenting the full system as a game controller to the PC.",
+      "The steering wheel runs a separate STM32F103, receiving telemetry frames from the wheelbase over CAN and rendering gear, speed, and RPM data onto a Nextion display. All user inputs — buttons, encoders, rotary switches, and paddle shifters —  are routed back to the wheelbase.",
+      "The pedals report throttle, brake, and clutch positions via analog angle sensors to the wheelbase, which bundles everything into a single USB HID report. A Python application on the PC reads Assetto Corsa shared memory and forwards live telemetry over USB OTG — faster and lower-overhead than UDP."
     ],
     outcome: [
-      "The final system delivered a custom Formula 1 style steering wheel with live telemetry, a belt-driven wheelbase for force feedback, and a full pedal set tied together over CAN bus.",
-      "It proved out a full-stack embedded product workflow spanning electronics, firmware, CAD, 3D-printed hardware, and PC-side telemetry integration for real racing titles."
+      "The final system earned top marks and strong feedback from faculty and industry judges at the NDSU Senior Design Expo. It successfully enumerates as a USB game controller, delivers real-time force feedback, and streams live telemetry to the wheel display — all simultaneously and without conflicts.",
+      "Beyond the technical result, this project proved out a complete embedded product workflow from scratch: schematic capture and PCB layout in Fusion 360 Electronics, mechanical enclosures designed in Fusion 360, 3D-printed in PA6-CF and ABS, and firmware debugged with a logic analyzer and oscilloscope across two full semesters."
+    ],
+    metrics: [
+      { value: "3", label: "Custom PCBs" },
+      { value: "Fusion 360", label: "Modeled & 3D Printed" },
+      { value: "FreeRTOS", label: "Real-Time OS" },
+      { value: "USB HID", label: "PC Interface" }
     ],
     bullets: simRacingProject.highlights
   },
@@ -209,6 +224,11 @@ export function ProjectDetail({
   onBack: () => void
   onNext: () => void
 }) {
+  const activeSectionLinks = [
+    ...sectionLinks,
+    ...(project.gallery?.length ? [{ id: "gallery", label: "05. Gallery" }] : [])
+  ]
+
   return (
     <div className={cn(styles.revealText, "pb-20")}>
       <button type="button" onClick={onBack} className={styles.detailBackButton}>
@@ -216,7 +236,7 @@ export function ProjectDetail({
         Back to Index
       </button>
 
-      <header className="mb-20 grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
+      <header className="mb-8 grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <h1 className={cn(styles.fontDisplay, styles.detailTitle)}>{project.title}</h1>
           <p className={styles.detailSubtitle}>{project.subtitle}</p>
@@ -238,13 +258,27 @@ export function ProjectDetail({
         </div>
       </header>
 
-      <div className={styles.caseStudyFrame}>
-        <div className={styles.caseStudyGradient} />
-        <div className={styles.caseStudyLineTop} />
-        <div className={styles.caseStudyLineBottom} />
-        <div className={styles.caseStudyCircle} />
-        <div className={styles.caseStudyBadge}>Case Study Visualization</div>
-      </div>
+      {project.heroImage ? (
+        <div className={styles.heroImageFrame}>
+          <Image
+            src={project.heroImage}
+            alt={project.title}
+            fill
+            className={styles.heroImageFill}
+            priority
+          />
+          <div className={styles.heroImageOverlay} />
+          <div className={styles.caseStudyBadge}>Case Study Visualization</div>
+        </div>
+      ) : (
+        <div className={styles.caseStudyFrame}>
+          <div className={styles.caseStudyGradient} />
+          <div className={styles.caseStudyLineTop} />
+          <div className={styles.caseStudyLineBottom} />
+          <div className={styles.caseStudyCircle} />
+          <div className={styles.caseStudyBadge}>Case Study Visualization</div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
         <aside className="lg:col-span-3">
@@ -254,7 +288,7 @@ export function ProjectDetail({
               Case Study
             </h3>
             <ul className="space-y-3 text-sm">
-              {sectionLinks.map((section, index) => (
+              {activeSectionLinks.map((section, index) => (
                 <li key={section.id}>
                   <a
                     href={`#${section.id}`}
@@ -265,6 +299,30 @@ export function ProjectDetail({
                 </li>
               ))}
             </ul>
+
+            {project.links?.length ? (
+              <div className={styles.tocLinks}>
+                <h3 className="mb-4 mt-10 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                  <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+                  Links
+                </h3>
+                <ul className="space-y-2 text-sm">
+                  {project.links.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={styles.tocExternalLink}
+                      >
+                        {link.label}
+                        <span className={styles.tocLinkArrow} aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </aside>
 
@@ -293,8 +351,8 @@ export function ProjectDetail({
 
             {project.metrics ? (
               <div className={styles.metricPanel}>
-                <h4 className={styles.sectionTitle}>Performance Metrics</h4>
-                <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+                <h4 className={styles.sectionTitle}>By the Build</h4>
+                <div className="flex flex-wrap justify-between gap-y-6">
                   {project.metrics.map((metric) => (
                     <div key={metric.label}>
                       <span className={cn(styles.fontDisplay, styles.metricValue)}>{metric.value}</span>
@@ -322,6 +380,24 @@ export function ProjectDetail({
               </p>
             ))}
           </section>
+
+          {project.gallery?.length ? (
+            <section id="gallery" className="scroll-mt-32">
+              <h2 className={styles.sectionTitle}>Gallery</h2>
+              <div className={styles.galleryGrid}>
+                {project.gallery.map((image) => (
+                  <div key={image.src} className={styles.galleryItem}>
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className={styles.galleryImage}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <div className={styles.articleFooter}>
             <h3 className={cn(styles.fontDisplay, "m-0 text-3xl uppercase")}>Next Project</h3>
