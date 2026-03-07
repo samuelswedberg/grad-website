@@ -353,7 +353,7 @@ function ProjectDetail({
           <div className="lg:sticky lg:top-32">
             <h3 className="mb-6 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
               <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-              Contents
+              Case Study
             </h3>
             <ul className="space-y-3 text-sm">
               {sectionLinks.map((section, index) => (

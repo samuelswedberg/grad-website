@@ -15,8 +15,9 @@ export function SiteHeader() {
   const pathname = usePathname()
   const isHomePage = pathname === "/"
   const isProjectsPage = pathname === "/projects"
+  const isAboutPage = pathname === "/about"
 
-  if (isHomePage || isProjectsPage) {
+  if (isHomePage || isProjectsPage || isAboutPage) {
     return null
   }
 

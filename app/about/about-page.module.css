@@ -1,0 +1,505 @@
+.page {
+  --color-bg: #030305;
+  --color-text: #ffffff;
+  --color-accent: #e8d5b5;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.noiseOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+.fluidBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fluidBlob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.4;
+}
+
+.blob1 {
+  top: -10%;
+  left: -5%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+}
+
+.blob2 {
+  right: -5%;
+  bottom: -10%;
+  width: 35vw;
+  height: 35vw;
+  background: radial-gradient(circle, #9333ea 0%, transparent 70%);
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 2rem 1.5rem 0;
+  mix-blend-mode: difference;
+}
+
+.wordMark {
+  line-height: 1;
+}
+
+.wordMarkTitle {
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.wordMarkSubtitle {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgb(156 163 175);
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.navLink {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--color-accent);
+}
+
+.activeNavLink {
+  color: var(--color-accent);
+}
+
+.activeNavLink::after {
+  width: 100%;
+}
+
+.main {
+  position: relative;
+  z-index: 10;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 10rem 1.5rem 0;
+}
+
+.reveal {
+  animation: reveal-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.revealDelayed {
+  opacity: 0;
+  animation: reveal-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+.heroSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.portraitColumn {
+  grid-column: span 1;
+}
+
+.portraitFrame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  justify-self: start;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.portraitFrame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.3));
+  pointer-events: none;
+}
+
+.portraitImage {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(0.78);
+  transition:
+    filter 0.7s ease,
+    transform 0.7s ease;
+}
+
+.portraitFrame:hover .portraitImage {
+  filter: grayscale(0.05) contrast(1.04) brightness(0.92);
+  transform: scale(1.02);
+}
+
+.copyColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroTitle {
+  margin-bottom: 3rem;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.heroTitle span {
+  color: var(--color-accent);
+}
+
+.heroCopy {
+  max-width: 42rem;
+  display: grid;
+  gap: 2rem;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgb(209 213 219);
+}
+
+.heroQuote {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: rgb(107 114 128);
+}
+
+.experienceSection {
+  margin-top: 8rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.experienceLabelColumn {
+  grid-column: span 1;
+}
+
+.sectionLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.experienceContentColumn {
+  display: grid;
+  gap: 3.5rem;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 5rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0;
+  left: 5px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.gradientDot {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  z-index: 10;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #e8d5b5, #ffffff);
+  transition: transform 0.3s ease;
+}
+
+.timelineItem:hover .gradientDot {
+  transform: scale(1.25);
+}
+
+.timelineHeader {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timelineHeader h4 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.timelineHeader span {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.75rem;
+  color: rgb(107 114 128);
+}
+
+.timelineItem p {
+  max-width: 48rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: rgb(156 163 175);
+}
+
+.focusAreaBlock {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.focusAreaList {
+  display: grid;
+  gap: 1rem;
+}
+
+.focusAreaList li {
+  border-left: 1px solid rgba(232, 213, 181, 0.4);
+  padding-left: 1rem;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgb(156 163 175);
+}
+
+.tickerSection {
+  margin-top: 10rem;
+  padding-bottom: 5rem;
+  overflow: hidden;
+}
+
+.tickerWrapper {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 0;
+}
+
+.tickerTrack {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4rem;
+  padding: 0 2rem;
+  animation: ticker 30s linear infinite;
+}
+
+.tickerItem {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.1);
+  transition: color 0.3s ease;
+}
+
+.tickerItem:hover {
+  color: var(--color-accent);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 3rem 0;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgb(107 114 128);
+}
+
+.footerLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.footerLinks a {
+  transition: color 0.3s ease;
+}
+
+.footerLinks a:hover {
+  color: #ffffff;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroSection {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 6rem;
+  }
+
+  .portraitColumn {
+    grid-column: span 5 / span 5;
+  }
+
+  .portraitFrame {
+    margin-top: 1rem;
+  }
+
+  .copyColumn {
+    grid-column: span 7 / span 7;
+  }
+
+  .experienceSection {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 3rem;
+  }
+
+  .experienceLabelColumn {
+    grid-column: span 3 / span 3;
+  }
+
+  .experienceContentColumn {
+    grid-column: span 9 / span 9;
+  }
+
+  .timelineHeader {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1.5rem 1rem 0;
+  }
+
+  .navLinks {
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+  }
+
+  .main {
+    padding: 8rem 1rem 0;
+  }
+
+  .portraitFrame {
+    margin-inline: auto;
+  }
+
+  .experienceSection {
+    margin-top: 6rem;
+  }
+
+  .tickerSection {
+    margin-top: 7rem;
+  }
+
+  .tickerTrack {
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .footerLinks {
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .revealDelayed,
+  .portraitImage,
+  .gradientDot,
+  .tickerTrack,
+  .navLink::after {
+    animation: none;
+    transition: none;
+  }
+
+  .reveal,
+  .revealDelayed {
+    opacity: 1;
+    transform: none;
+  }
+}
