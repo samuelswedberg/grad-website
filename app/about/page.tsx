@@ -25,7 +25,7 @@ const experience = [
     type: "Full-time",
     years: "Jun 2025 - Present",
     description:
-      "Working on industrial automation systems in a pharmaceutical manufacturing environment with an emphasis on controls, production logic, and reliable plant-floor execution."
+      "Working on industrial automation systems in a pharmaceutical manufacturing environment with an emphasis on programmable logic controller programming, system integration, and reliable plant-floor execution."
   },
   {
     title: "Electrical Engineering Intern",
@@ -34,7 +34,7 @@ const experience = [
     type: "Internship",
     years: "May 2024 - May 2025",
     description:
-      "Supported automation and electrical engineering work while building experience with manufacturing systems, controls-oriented development, and production equipment."
+      "Developed and maintained internal software tools while supporting automation and electrical engineering work across active manufacturing lines, gaining hands-on experience with production systems and plant-floor operations."
   },
   {
     title: "Service Shop Technician",
@@ -43,7 +43,7 @@ const experience = [
     type: "Part-time",
     years: "Jul 2021 - Apr 2025",
     description:
-      "Provided maintenance and assembly of customer and store equipment, including bicycles, snowboards, skis, hockey skates and sticks, baseball gloves and bats, golf clubs, and racquet sports equipment."
+      "Performed expert-level maintenance, repair, and assembly across all major sporting goods categories — bicycles, skis, snowboards, hockey, baseball, golf, and racquet sports — while serving as a senior shop technician training and mentoring new hires on shop procedures and equipment standards."
   }
 ]
 
@@ -51,7 +51,7 @@ const education = {
   school: "North Dakota State University",
   degree: "Bachelor of Science in Computer Engineering",
   years: "Aug 2021 - May 2025",
-  detail: "Grounded in embedded systems, low-level programming, electronics, and full-stack engineering."
+  detail: "Grounded in embedded systems, low-level programming, electronics, digital signal processing, and full-stack engineering — with focused coursework in computer architecture, control systems, VLSI design, hardware for machine learning, and a 9-month capstone replicating a commercial sim racing system using STM32 microcontrollers, CAN bus, and custom PCB design."
 }
 
 const tickerTools = [...tools, "React", "Rust", ...tools, "React", "Rust"]
@@ -68,7 +68,7 @@ export default function AboutPage() {
       <nav className={styles.nav}>
         <Link href="/" className={styles.wordMark}>
           <h1 className={styles.wordMarkTitle}>Samuel Swedberg</h1>
-          <span className={styles.wordMarkSubtitle}>Engineer Creator</span>
+          <span className={styles.wordMarkSubtitle}>Engineer. Creator. Builder.</span>
         </Link>
 
         <div className={styles.navLinks}>
@@ -131,12 +131,15 @@ export default function AboutPage() {
 
           <div className={styles.experienceContentColumn}>
             <div className={styles.timeline}>
-              {experience.map((item) => (
+              {experience.map((item, index) => (
                 <div key={`${item.company}-${item.title}`} className={styles.timelineItem}>
-                  <div className={styles.gradientDot} aria-hidden="true" />
+                  <div
+                    className={`${styles.gradientDot} ${index === 0 ? styles.featuredGradientDot : ""}`}
+                    aria-hidden="true"
+                  />
                   <div className={styles.timelineHeader}>
                     <div className={styles.timelineHeadingBlock}>
-                      <h4>{item.title}</h4>
+                      <h4 className={index === 0 ? styles.featuredTimelineTitle : ""}>{item.title}</h4>
                       <p className={styles.timelineCompany}>{item.company}</p>
                     </div>
                     <span>{item.years}</span>

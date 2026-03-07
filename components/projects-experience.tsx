@@ -3,7 +3,7 @@
 import { startTransition, useMemo, useState } from "react"
 import Link from "next/link"
 
-import { siteLinks } from "@/lib/site-data"
+import { projects as portfolioProjects, siteLinks } from "@/lib/site-data"
 import { cn } from "@/lib/utils"
 
 import styles from "@/app/projects/projects-page.module.css"
@@ -29,42 +29,38 @@ type ProjectEntry = {
   metrics?: ProjectMetric[]
 }
 
+const simRacingProject = portfolioProjects[0]
+
 const projects: ProjectEntry[] = [
   {
-    id: "sim-system",
-    title: "Sim System",
-    subtitle: "WebGPU Fluid Dynamics Engine",
-    year: "2023",
-    role: "Lead Engineer & Design",
-    tags: ["WebGL", "Rust", "WASM", "Physics"],
-    description:
-      "A browser-based simulation engine capable of rendering 2 million particles in real-time. Designed to test the limits of WebGPU in modern browsers.",
-    overview:
-      "The friction between a brilliant mathematical model and its visual representation often lies in compute power. Sim System bridges this gap.",
+    id: simRacingProject.slug,
+    title: simRacingProject.title,
+    subtitle: simRacingProject.eyebrow,
+    year: "2024-2025",
+    role: simRacingProject.status,
+    tags: simRacingProject.stack,
+    description: simRacingProject.summary,
+    overview: simRacingProject.summary,
     challenge: [
-      "Traditional fluid simulations usually live inside heavy desktop tools. The project goal was to bring that fidelity into the browser without turning load times or interactivity into a compromise.",
-      "That meant balancing throughput, memory pressure, and visual quality while staying inside browser constraints that are far less forgiving than a native graphics stack."
+      "The project was not just a steering wheel. It had to behave like a complete racing control system with force feedback, live telemetry, pedal input, and low-latency communication between multiple custom-built devices.",
+      "That meant solving firmware, mechanical packaging, USB controller behavior, and inter-device messaging as one integrated product rather than a collection of disconnected prototypes."
     ],
     solution: [
-      "By pairing Rust with WebAssembly and targeting the emerging WebGPU standard, Sim System pushes the expensive numerical work into a compact, low-overhead runtime while keeping rendering responsive.",
-      "The architecture was intentionally sparse. Data pipelines were tuned for fast transfers, the rendering path stayed dependency-light, and the interface exposed only the controls needed to interrogate the simulation."
+      simRacingProject.technicalNotes[0],
+      simRacingProject.technicalNotes[1],
+      simRacingProject.technicalNotes[2]
     ],
     outcome: [
-      "The result is a near-native browser experience that demonstrates how far modern graphics APIs can be pushed for scientific and creative tooling.",
-      "It also became a useful benchmark for practical WebGPU adoption, not just a visual demo."
+      "The final system delivered a custom Formula 1 style steering wheel with live telemetry, a belt-driven wheelbase for force feedback, and a full pedal set tied together over CAN bus.",
+      "It proved out a full-stack embedded product workflow spanning electronics, firmware, CAD, 3D-printed hardware, and PC-side telemetry integration for real racing titles."
     ],
-    metrics: [
-      { value: "2M+", label: "Particles" },
-      { value: "60", label: "FPS Stable" },
-      { value: "4MB", label: "Bundle Size" },
-      { value: "0", label: "Dependencies" }
-    ]
+    bullets: simRacingProject.highlights
   },
   {
     id: "forge",
     title: "Forge",
     subtitle: "Indoor Cycling & Training App",
-    year: "2024",
+    year: "2026",
     role: "Lead Engineer & Design",
     tags: ["React Native", "Bluetooth LE", "Node.js", "Postgres"],
     description:
@@ -196,7 +192,7 @@ export function ProjectsExperience() {
       <nav className={styles.nav}>
         <Link href="/" className={styles.wordMark}>
           <span className={styles.navLabel}>Samuel Swedberg</span>
-          <span className={styles.navSubLabel}>Engineer Creator</span>
+          <span className={styles.navSubLabel}>Engineer. Creator. Builder.</span>
         </Link>
 
         <div className={styles.navGroup}>
@@ -294,7 +290,7 @@ function ProjectsIndex({ onOpenProject }: { onOpenProject: (projectId: string) =
         ))}
 
         <div className={styles.listFooter}>
-          <span>2024</span>
+          <span>2026</span>
           <span>S. Swedberg</span>
         </div>
       </section>

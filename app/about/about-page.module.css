@@ -274,6 +274,10 @@
   transform: scale(1.25);
 }
 
+.featuredGradientDot {
+  background: var(--color-accent);
+}
+
 .timelineHeader {
   margin-bottom: 1rem;
   display: flex;
@@ -290,6 +294,10 @@
   font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.featuredTimelineTitle {
+  color: var(--color-accent);
 }
 
 .timelineCompany {

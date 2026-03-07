@@ -29,11 +29,11 @@ export const projects: Project[] = [
     title: "Sim Racing System",
     summary:
       "A custom steering wheel, wheelbase, and pedal system built for racing simulators, with force feedback, telemetry, and embedded firmware designed from the ground up.",
-    eyebrow: "Embedded systems / controls / product engineering",
+    eyebrow: "Embedded systems / mechanical design / product engineering",
     coverImage: "/media/sim-wheel.png",
     heroImage: "/media/sdposter.jpg",
-    status: "Senior design build",
-    stack: ["STM32", "C", "FreeRTOS", "CAN", "Fusion 360", "3D Printing"],
+    status: "Lead Engineer",
+    stack: ["STM32", "FreeRTOS", "CANBUS / USB", "CUSTOM PCB", "CAD", "3D Printing"],
     links: [
       { label: "GitHub", href: "https://github.com/samuelswedberg/sim-wheel" },
       { label: "Demo video", href: "https://www.youtube.com/watch?v=K_I2sCAWH18" },
