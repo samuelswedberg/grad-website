@@ -8,7 +8,7 @@ import { siteLinks } from "@/lib/site-data"
 export function SiteFooter() {
   const pathname = usePathname()
 
-  if (pathname === "/") {
+  if (pathname === "/" || pathname === "/projects") {
     return null
   }
 

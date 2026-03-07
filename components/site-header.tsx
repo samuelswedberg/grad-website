@@ -14,8 +14,9 @@ const navItems = [
 export function SiteHeader() {
   const pathname = usePathname()
   const isHomePage = pathname === "/"
+  const isProjectsPage = pathname === "/projects"
 
-  if (isHomePage) {
+  if (isHomePage || isProjectsPage) {
     return null
   }
 
