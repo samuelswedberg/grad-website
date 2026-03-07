@@ -1,6 +1,5 @@
 "use client"
 
-import { startTransition, useMemo, useState } from "react"
 import Link from "next/link"
 
 import { projects as portfolioProjects, siteLinks } from "@/lib/site-data"
@@ -31,7 +30,7 @@ type ProjectEntry = {
 
 const simRacingProject = portfolioProjects[0]
 
-const projects: ProjectEntry[] = [
+export const projects: ProjectEntry[] = [
   {
     id: simRacingProject.slug,
     title: simRacingProject.title,
@@ -85,54 +84,6 @@ const projects: ProjectEntry[] = [
       "Social leaderboards and ghost-rider functionality."
     ]
   },
-  {
-    id: "nebula",
-    title: "Nebula",
-    subtitle: "Enterprise Design System",
-    year: "2022",
-    role: "Lead Engineer & Design",
-    tags: ["React", "Storybook", "Figma", "A11y"],
-    description:
-      "A comprehensive design language and component library built for scale, ensuring consistency across 12 different products.",
-    overview:
-      "Systemizing chaos into a coherent visual language.",
-    challenge: [
-      "Twelve products had drifted into twelve dialects. Components behaved differently, accessibility quality varied, and teams were paying the tax for every inconsistency.",
-      "The challenge was to build something strict enough to create order without becoming a bottleneck for product teams shipping at different speeds."
-    ],
-    solution: [
-      "Nebula became the single source of truth for engineering and design, combining shared components, tokens, documentation, and an interactive playground in one system.",
-      "Visual regression testing and accessibility review were built into the workflow so quality checks happened as part of delivery rather than after it."
-    ],
-    outcome: [
-      "The design system reduced repeated UI work and made cross-product consistency measurable instead of aspirational.",
-      "More importantly, it gave teams a common language for discussing interface decisions."
-    ]
-  },
-  {
-    id: "echo",
-    title: "Echo",
-    subtitle: "Audio Visualization Library",
-    year: "2021",
-    role: "Lead Engineer & Design",
-    tags: ["Canvas API", "Web Audio", "Math.js"],
-    description:
-      "Open source library for generating reactive audio visualizations with minimal configuration.",
-    overview:
-      "Seeing sound in real time.",
-    challenge: [
-      "The Web Audio API is powerful, but the gap between raw frequency data and a polished visualization can be intimidating for developers who just want expressive results quickly.",
-      "Echo focused on making reactive visuals approachable without flattening the creative range."
-    ],
-    solution: [
-      "The library wraps waveform and frequency analysis behind a simpler interface, then exposes clean hooks for driving canvas-based animation systems.",
-      "Developers can move from audio input to a reactive scene without having to rebuild the plumbing every time."
-    ],
-    outcome: [
-      "Echo lowered the setup cost for music-driven visual work and made experimentation faster for artists, hobbyists, and frontend teams.",
-      "It was intentionally built as a small, composable tool rather than a monolithic visual editor."
-    ]
-  }
 ]
 
 const sectionLinks = [
@@ -142,42 +93,7 @@ const sectionLinks = [
   { id: "outcome", label: "04. Outcome" }
 ]
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" })
-}
-
 export function ProjectsExperience() {
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
-
-  const selectedProject = useMemo(
-    () => projects.find((project) => project.id === selectedProjectId) ?? null,
-    [selectedProjectId]
-  )
-
-  const openProject = (projectId: string) => {
-    scrollToTop()
-    startTransition(() => {
-      setSelectedProjectId(projectId)
-    })
-  }
-
-  const showIndex = () => {
-    scrollToTop()
-    startTransition(() => {
-      setSelectedProjectId(null)
-    })
-  }
-
-  const showNextProject = () => {
-    if (!selectedProject) {
-      return
-    }
-
-    const currentIndex = projects.findIndex((project) => project.id === selectedProject.id)
-    const nextIndex = (currentIndex + 1) % projects.length
-    openProject(projects[nextIndex].id)
-  }
-
   return (
     <div className={styles.page}>
       <div className={styles.noiseOverlay} aria-hidden="true" />
@@ -197,13 +113,9 @@ export function ProjectsExperience() {
 
         <div className={styles.navGroup}>
           <div className={styles.navRow}>
-            <button
-              type="button"
-              onClick={showIndex}
-              className={cn(styles.navLink, styles.navLinkActive)}
-            >
+            <Link href="/projects" className={cn(styles.navLink, styles.navLinkActive)}>
               Projects
-            </button>
+            </Link>
             <Link href="/about" className={styles.navLink}>
               About
             </Link>
@@ -220,22 +132,13 @@ export function ProjectsExperience() {
       </nav>
 
       <main className={styles.main}>
-        {selectedProject ? (
-          <ProjectDetail
-            key={selectedProject.id}
-            project={selectedProject}
-            onBack={showIndex}
-            onNext={showNextProject}
-          />
-        ) : (
-          <ProjectsIndex key="projects-index" onOpenProject={openProject} />
-        )}
+        <ProjectsIndex />
       </main>
     </div>
   )
 }
 
-function ProjectsIndex({ onOpenProject }: { onOpenProject: (projectId: string) => void }) {
+function ProjectsIndex() {
   return (
     <div className={styles.revealText}>
       <header className={styles.hero}>
@@ -257,9 +160,8 @@ function ProjectsIndex({ onOpenProject }: { onOpenProject: (projectId: string) =
       <section className="flex flex-col">
         {projects.map((project, index) => (
           <article key={project.id} className={styles.projectCard}>
-            <button
-              type="button"
-              onClick={() => onOpenProject(project.id)}
+            <Link
+              href={`/projects/${project.id}`}
               className="group relative block w-full text-left"
             >
               <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-baseline">
@@ -285,7 +187,7 @@ function ProjectsIndex({ onOpenProject }: { onOpenProject: (projectId: string) =
                   <span className={cn(styles.metaMono, "text-sm text-gray-500")}>{project.year}</span>
                 </div>
               </div>
-            </button>
+            </Link>
           </article>
         ))}
 
@@ -298,7 +200,7 @@ function ProjectsIndex({ onOpenProject }: { onOpenProject: (projectId: string) =
   )
 }
 
-function ProjectDetail({
+export function ProjectDetail({
   project,
   onBack,
   onNext

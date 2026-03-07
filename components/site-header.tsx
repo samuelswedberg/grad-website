@@ -17,7 +17,7 @@ export function SiteHeader() {
   const isProjectsPage = pathname === "/projects"
   const isAboutPage = pathname === "/about"
 
-  if (isHomePage || isProjectsPage || isAboutPage) {
+  if (isHomePage || isProjectsPage || isAboutPage || pathname.startsWith("/projects/")) {
     return null
   }
 
