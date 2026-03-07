@@ -193,17 +193,27 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <footer className={styles.footer}>
-          <span>2024 Samuel Swedberg</span>
-          <div className={styles.footerLinks}>
-            <Link href={siteLinks.github} target="_blank" rel="noreferrer">
-              GitHub
-            </Link>
-            <Link href={siteLinks.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
-            </Link>
-            <Link href="/projects">Projects</Link>
+        <section className={styles.contactSection}>
+          <p className={styles.contactLabel}>Get in touch</p>
+          <div className={styles.contactLinks}>
+            <a href={siteLinks.github} target="_blank" rel="noreferrer" className={styles.contactLink}>
+              <span>GitHub</span>
+              <span className={styles.contactArrow}>↗</span>
+            </a>
+            <a href={siteLinks.linkedin} target="_blank" rel="noreferrer" className={styles.contactLink}>
+              <span>LinkedIn</span>
+              <span className={styles.contactArrow}>↗</span>
+            </a>
+            <a href={siteLinks.email} className={styles.contactLink}>
+              <span>Email</span>
+              <span className={styles.contactArrow}>↗</span>
+            </a>
           </div>
+        </section>
+
+        <footer className={styles.footer}>
+          <span>2026 Samuel Swedberg</span>
+          <Link href="/projects" className={styles.footerLinks}>Projects</Link>
         </footer>
       </main>
     </div>

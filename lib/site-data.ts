@@ -21,6 +21,7 @@ export type Project = {
 export const siteLinks = {
   github: "https://github.com/samuelswedberg",
   linkedin: "https://www.linkedin.com/in/samuelswedberg",
+  email: "mailto:samuelswedberg@gmail.com",
 }
 
 export const projects: Project[] = [

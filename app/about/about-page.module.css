@@ -4,7 +4,6 @@
   --color-accent: #e8d5b5;
   position: relative;
   min-height: 100vh;
-  overflow-x: clip;
   background: var(--color-bg);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
@@ -51,8 +50,7 @@
 }
 
 .nav {
-  position: fixed;
-  top: 0;
+  position: relative;
   z-index: 50;
   display: flex;
   width: 100%;
@@ -375,6 +373,56 @@
   font-size: 1rem;
   line-height: 1.8;
   color: rgb(156 163 175);
+}
+
+.contactSection {
+  padding: 3rem 0 5rem;
+}
+
+.contactLabel {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgb(107 114 128);
+  margin-bottom: 2.5rem;
+}
+
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.5rem 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: rgb(209 213 219);
+  transition: color 0.25s ease;
+  text-decoration: none;
+}
+
+.contactLink:hover {
+  color: var(--color-accent);
+}
+
+.contactArrow {
+  font-size: 0.4em;
+  font-weight: 400;
+  opacity: 0.5;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.contactLink:hover .contactArrow {
+  opacity: 1;
+  transform: translate(4px, -4px);
 }
 
 .tickerSection {
