@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import ProjectsNav from "../../components/ProjectsNav.astro"
+import { projects } from "@/lib/projects-data"
+import { cn } from "@/lib/utils"
+import styles from "@/styles/projects.module.css"
+---
+
+<BaseLayout title="Projects | Samuel Swedberg" description="Selected engineering work across simulation, software, and product development." immersive>
+  <div class={styles.page} style="font-family: 'Inter', sans-serif;">
+    <ProjectsNav currentPath={Astro.url.pathname} />
+
+    <main class={styles.main}>
+      <div class={styles.revealText}>
+        <header class={styles.hero}>
+          <h1 class={cn(styles.fontDisplay, styles.heroTitle)}>
+            Selected <br />
+            <span class={styles.heroAccent}>Works</span>
+          </h1>
+
+          <div class="flex flex-col gap-8 md:flex-row md:items-end">
+            <div class="md:w-1/2">
+              <p class={styles.heroCopy}>
+                Minimizing the friction between a brilliant idea and its physical realization. A
+                collection of engineering challenges solved.
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <section class="flex flex-col">
+          {projects.map((project, index) => (
+            <article class={styles.projectCard}>
+              <a
+                href={`/projects/${project.id}`}
+                class="group relative block w-full text-left"
+              >
+                <div class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-baseline">
+                  <div class="md:w-2/5">
+                    <span class={styles.projectCardIndex}>
+                      {String(index + 1).padStart(2, "0")} {project.subtitle}
+                    </span>
+                    <h2 class={cn(styles.fontDisplay, styles.projectTitle)}>{project.title}</h2>
+                  </div>
+
+                  <div class="md:w-2/5">
+                    <p class={styles.projectDescription}>{project.description}</p>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span class={styles.tag}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div class="self-start text-right md:w-[10%] md:self-auto">
+                    <span class={cn(styles.metaMono, "text-sm text-gray-500")}>{project.year}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+
+          <div class={styles.listFooter}>
+            <span>2026</span>
+            <span>S. Swedberg</span>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</BaseLayout>

@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import ProjectsNav from "../../components/ProjectsNav.astro"
+import { projects, sectionLinks } from "@/lib/projects-data"
+import { cn } from "@/lib/utils"
+import styles from "@/styles/projects.module.css"
+
+export function getStaticPaths() {
+  return projects.map((project, index) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      nextProject: projects[(index + 1) % projects.length],
+    },
+  }))
+}
+
+const { project, nextProject } = Astro.props
+
+const activeSectionLinks = [
+  ...sectionLinks,
+  ...(project.gallery?.length ? [{ id: "gallery", label: "05. Gallery" }] : []),
+]
+---
+
+<BaseLayout title={`${project.title} | Samuel Swedberg`} description={project.description} immersive>
+  <div class={styles.page} style="font-family: 'Inter', sans-serif;">
+    <ProjectsNav currentPath={Astro.url.pathname} />
+
+    <main class={styles.main}>
+      <div class={cn(styles.revealText, "pb-20")}>
+        <a href="/projects" class={styles.detailBackButton}>
+          <span class={styles.detailBackLine} aria-hidden="true"></span>
+          Back to Index
+        </a>
+
+        <header class="mb-8 grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
+          <div class="lg:col-span-8">
+            <h1 class={cn(styles.fontDisplay, styles.detailTitle)}>{project.title}</h1>
+            <p class={styles.detailSubtitle}>{project.subtitle}</p>
+          </div>
+
+          <div class={cn(styles.detailMetaBlock, "flex h-full flex-col justify-end lg:col-span-4 lg:text-right")}>
+            <div class="space-y-1">
+              <span class={styles.detailMetaLabel}>Role</span>
+              <span class={styles.detailMetaValue}>{project.role}</span>
+
+              <span class={styles.detailMetaLabel}>Year</span>
+              <span class={styles.detailMetaValue}>{project.year}</span>
+
+              <span class={styles.detailMetaLabel}>Stack</span>
+              <span class="block text-sm font-bold uppercase text-gray-300">
+                {project.tags.join(", ")}
+              </span>
+            </div>
+          </div>
+        </header>
+
+        {project.heroImage ? (
+          <div class={styles.heroImageFrame}>
+            <img
+              src={project.heroImage}
+              alt={project.title}
+              class={styles.heroImageFill}
+              style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+            />
+            <div class={styles.heroImageOverlay}></div>
+          </div>
+        ) : project.cta ? (
+          <a
+            href={project.cta.href}
+            target="_blank"
+            rel="noreferrer"
+            class={styles.ctaFrame}
+          >
+            <div class={styles.caseStudyGradient}></div>
+            <div class={styles.ctaContent}>
+              <span class={styles.ctaDescription}>{project.cta.description}</span>
+              <span class={styles.ctaLabel}>{project.cta.label} ↗</span>
+            </div>
+          </a>
+        ) : (
+          <div class={styles.caseStudyFrame}>
+            <div class={styles.caseStudyGradient}></div>
+            <div class={styles.caseStudyLineTop}></div>
+            <div class={styles.caseStudyLineBottom}></div>
+            <div class={styles.caseStudyCircle}></div>
+          </div>
+        )}
+
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <aside class="lg:col-span-3">
+            <div class="lg:sticky lg:top-32">
+              <h3 class="mb-6 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                <span class="h-2 w-2 rounded-full bg-[var(--color-accent)]"></span>
+                Case Study
+              </h3>
+              <ul class="space-y-3 text-sm">
+                {activeSectionLinks.map((section, index) => (
+                  <li>
+                    <a
+                      href={`#${section.id}`}
+                      class={cn(styles.tocLink, index === 0 && styles.activeTocLink)}
+                    >
+                      {section.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              {project.links?.length ? (
+                <div class={styles.tocLinks}>
+                  <h3 class="mb-4 mt-10 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                    <span class="h-2 w-2 rounded-full bg-[var(--color-accent)]"></span>
+                    Links
+                  </h3>
+                  <ul class="space-y-2 text-sm">
+                    {project.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          class={styles.tocExternalLink}
+                        >
+                          {link.label}
+                          <span class={styles.tocLinkArrow} aria-hidden="true">↗</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </aside>
+
+          <article class={cn(styles.article, "lg:col-span-8 lg:col-start-5")}>
+            <section id="overview" class="scroll-mt-32">
+              <h2 class={styles.sectionTitle}>Overview</h2>
+              <p class={styles.leadParagraph}>{project.overview}</p>
+            </section>
+
+            <section id="challenge" class="scroll-mt-32">
+              <h2 class={styles.sectionTitle}>The Challenge</h2>
+              {project.challenge.map((paragraph) => (
+                <p class={styles.bodyParagraph}>{paragraph}</p>
+              ))}
+            </section>
+
+            <section id="solution" class="scroll-mt-32">
+              <h2 class={styles.sectionTitle}>Solution</h2>
+              {project.solution.map((paragraph) => (
+                <p class={styles.bodyParagraph}>{paragraph}</p>
+              ))}
+
+              {project.metrics ? (
+                <div class={styles.metricPanel}>
+                  <h4 class={styles.sectionTitle}>By the Build</h4>
+                  <div class="flex flex-wrap justify-between gap-y-6">
+                    {project.metrics.map((metric) => (
+                      <div>
+                        <span class={cn(styles.fontDisplay, styles.metricValue)}>{metric.value}</span>
+                        <span class={styles.metricLabel}>{metric.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {project.bullets ? (
+                <ul class={styles.bulletList}>
+                  {project.bullets.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </section>
+
+            <section id="outcome" class="scroll-mt-32">
+              <h2 class={styles.sectionTitle}>Outcome</h2>
+              {project.outcome.map((paragraph) => (
+                <p class={styles.bodyParagraph}>{paragraph}</p>
+              ))}
+            </section>
+
+            {project.gallery?.length ? (
+              <section id="gallery" class="scroll-mt-32">
+                <h2 class={styles.sectionTitle}>Gallery</h2>
+                <div class={styles.galleryGrid}>
+                  {project.gallery.map((image) => (
+                    <div class={styles.galleryItem}>
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        class={styles.galleryImage}
+                        style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            <div class={styles.articleFooter}>
+              <h3 class={cn(styles.fontDisplay, "m-0 text-3xl uppercase")}>Next Project</h3>
+              <a href={`/projects/${nextProject.id}`} class={styles.nextButton}>
+                View
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+</BaseLayout>

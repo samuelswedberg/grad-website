@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+:root {
+  --color-canvas: #080604;
+  --color-panel: rgba(18, 14, 8, 0.82);
+  --color-panel-strong: rgba(28, 22, 12, 0.92);
+  --color-ink: #ffeedd;
+  --color-muted: #b89a78;
+  --color-accent: #ffb347;
+  --color-warm: #ff6e1a;
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-sans: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans), sans-serif;
+  color: var(--color-ink);
+}
+
+a {
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(255, 179, 71, 0.28);
+  color: white;
+}
+
+.page-shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1120px;
+  padding-inline: 1.5rem;
+}
+
+.panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-panel);
+  box-shadow: 0 24px 120px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(24px);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.section-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.4rem, 4vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prose-copy {
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
+.content-rail {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+/* ── CRT / VHS Effects ── */
+
+.crt-screen {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(255, 179, 71, 0.07) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0806 0%, #080604 52%, #0a0806 100%);
+  box-shadow: inset 0 0 150px 80px rgba(0, 0, 0, 0.65);
+  animation: crt-flicker 4s steps(2, end) infinite;
+}
+
+/* Screen curvature warp */
+.crt-screen::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: -2px;
+  z-index: 60;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 200px 80px rgba(0, 0, 0, 0.7),
+    inset 0 0 40px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Scanlines — heavier, visible pitch */
+.crt-scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 51;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.25) 2px,
+    rgba(0, 0, 0, 0.25) 4px
+  );
+  animation: scanline-roll 12s linear infinite;
+}
+
+/* Rolling scanline bar — the bright band that drifts down */
+.crt-scanlines::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 52;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 179, 71, 0.03) 30%,
+    rgba(255, 179, 71, 0.06) 50%,
+    rgba(255, 179, 71, 0.03) 70%,
+    transparent 100%
+  );
+  animation: scanbar-drift 6s linear infinite;
+}
+
+/* Static noise — more visible */
+.crt-noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  animation: grain-flicker 0.15s steps(3) infinite;
+}
+
+/* Color bleed / chromatic aberration on all text */
+.crt-text {
+  text-shadow:
+    1px 0 0 rgba(255, 80, 0, 0.35),
+    -1px 0 0 rgba(255, 200, 50, 0.35);
+}
+
+/* RGB sub-pixel separation on the whole screen */
+.crt-rgb {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 60, 0, 0.03) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(255, 200, 50, 0.02) 3px,
+      transparent 4px,
+      transparent 5px,
+      rgba(255, 120, 0, 0.03) 6px
+    );
+}
+
+/* VHS color bleed — horizontal color shift */
+.crt-bleed {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 47;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 100, 0, 0.015) 20%,
+    transparent 40%,
+    rgba(255, 180, 50, 0.02) 60%,
+    transparent 80%,
+    rgba(255, 60, 0, 0.015) 100%
+  );
+  animation: color-bleed-shift 8s ease-in-out infinite alternate;
+}
+
+@keyframes crt-flicker {
+  0%   { filter: brightness(1) contrast(1); }
+  2%   { filter: brightness(1.03) contrast(1.01); }
+  4%   { filter: brightness(0.97) contrast(0.99); }
+  5%   { filter: brightness(1.04) contrast(1); }
+  7%   { filter: brightness(0.98) contrast(1.01); }
+  10%  { filter: brightness(1.02) contrast(1); }
+  13%  { filter: brightness(1) contrast(1); }
+  100% { filter: brightness(1) contrast(1); }
+}
+
+@keyframes grain-flicker {
+  0%   { opacity: 0.10; transform: translate(0, 0); }
+  33%  { opacity: 0.14; transform: translate(-1px, 1px); }
+  66%  { opacity: 0.08; transform: translate(1px, -1px); }
+  100% { opacity: 0.12; transform: translate(0, 0); }
+}
+
+@keyframes scanbar-drift {
+  0%   { top: -120px; }
+  100% { top: 100vh; }
+}
+
+@keyframes scanline-roll {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 400px; }
+}
+
+@keyframes color-bleed-shift {
+  0%   { transform: translateX(0); opacity: 1; }
+  50%  { transform: translateX(2px); opacity: 0.8; }
+  100% { transform: translateX(-1px); opacity: 1; }
+}
+
+/* VHS tracking glitch — more frequent, more violent */
+@keyframes vhs-tracking {
+  0%, 88%, 100%   { clip-path: inset(0); transform: none; }
+  89%             { clip-path: inset(38% 0 58% 0); transform: translateX(8px) skewX(2deg); }
+  90.5%           { clip-path: inset(72% 0 24% 0); transform: translateX(-6px) skewX(-1deg); }
+  92%             { clip-path: inset(12% 0 84% 0); transform: translateX(4px); }
+  93%             { clip-path: inset(55% 0 40% 0); transform: translateX(-10px) skewX(3deg); }
+  94.5%           { clip-path: inset(0); transform: none; }
+}
+
+@keyframes hero-nav-shimmer {
+  0% {
+    background-position: 50% 50%;
+    filter: brightness(0.99) saturate(0.95);
+  }
+
+  50% {
+    background-position: 50% 50%;
+    filter: brightness(1.06) saturate(1.08);
+  }
+
+  100% {
+    background-position: 50% 50%;
+    filter: brightness(0.99) saturate(0.95);
+  }
+}
+
+.hero-nav-shimmer {
+  animation: hero-nav-shimmer 5.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-screen {
+    animation: none;
+    filter: none;
+  }
+
+  .crt-screen::before {
+    animation: none;
+  }
+
+  .crt-scanlines {
+    animation: none;
+  }
+
+  .crt-scanlines::after {
+    animation: none;
+    display: none;
+  }
+
+  .crt-noise {
+    animation: none;
+    opacity: 0.06;
+  }
+
+  .crt-bleed {
+    animation: none;
+  }
+
+  .hero-nav-shimmer {
+    animation: none;
+  }
+}

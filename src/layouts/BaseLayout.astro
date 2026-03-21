@@ -1,0 +1,46 @@
+---
+import "../styles/globals.css"
+import SiteHeader from "../components/SiteHeader.astro"
+import SiteFooter from "../components/SiteFooter.astro"
+
+interface Props {
+  title: string
+  description?: string
+  immersive?: boolean
+}
+
+const {
+  title,
+  description = "Computer engineering portfolio featuring embedded systems, hardware prototypes, firmware, and product-focused engineering work.",
+  immersive = false,
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[var(--color-canvas)] text-white">
+    <div class="crt-screen">
+      <div class="crt-scanlines" aria-hidden="true"></div>
+      <div class="crt-noise" aria-hidden="true"></div>
+      <div class="crt-rgb" aria-hidden="true"></div>
+      <div class="crt-bleed" aria-hidden="true"></div>
+      {!immersive && <SiteHeader currentPath={Astro.url.pathname} />}
+      <main class={immersive ? "" : "pt-24"}>
+        <slot />
+      </main>
+      {!immersive && <SiteFooter />}
+    </div>
+  </body>
+</html>

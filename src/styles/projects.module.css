@@ -178,6 +178,8 @@
   line-height: 0.9;
   text-transform: uppercase;
   transition: color 0.3s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .projectCard:hover .projectTitle {
@@ -252,6 +254,8 @@
   line-height: 0.8;
   text-transform: uppercase;
   color: var(--color-accent);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .detailSubtitle {

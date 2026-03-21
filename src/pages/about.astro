@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import { focusAreas, siteLinks, tools } from "@/lib/site-data"
+import styles from "@/styles/about.module.css"
+
+const experience = [
+  {
+    title: "Automation Programmer",
+    company: "Körber Pharma",
+    location: "Fargo, North Dakota, United States · On-site",
+    type: "Full-time",
+    years: "Jun 2025 - Present",
+    description:
+      "Working on industrial automation systems in a pharmaceutical manufacturing environment with an emphasis on programmable logic controller programming, system integration, and reliable plant-floor execution."
+  },
+  {
+    title: "Electrical Engineering Intern",
+    company: "Körber Pharma",
+    location: "Fargo, North Dakota, United States · On-site",
+    type: "Internship",
+    years: "May 2024 - May 2025",
+    description:
+      "Developed and maintained internal software tools while supporting automation and electrical engineering work across active manufacturing lines, gaining hands-on experience with production systems and plant-floor operations."
+  },
+  {
+    title: "Service Shop Technician",
+    company: "Scheels",
+    location: "Moorhead, Minnesota, United States · On-site",
+    type: "Part-time",
+    years: "Jul 2021 - Apr 2025",
+    description:
+      "Performed expert-level maintenance, repair, and assembly across all major sporting goods categories — bicycles, skis, snowboards, hockey, baseball, golf, and racquet sports — while serving as a senior shop technician training and mentoring new hires on shop procedures and equipment standards."
+  }
+]
+
+const education = {
+  school: "North Dakota State University",
+  degree: "Bachelor of Science in Computer Engineering",
+  years: "Aug 2021 - May 2025",
+  detail: "Grounded in embedded systems, low-level programming, electronics, digital signal processing, and full-stack engineering — with focused coursework in computer architecture, control systems, VLSI design, hardware for machine learning, and a 9-month capstone replicating a commercial sim racing system using STM32 microcontrollers, CAN bus, and custom PCB design."
+}
+
+const tickerTools = [...tools, "React", "Rust", ...tools, "React", "Rust"]
+---
+
+<BaseLayout title="About | Samuel Swedberg" description="Background, focus areas, and engineering interests." immersive>
+  <div class:list={[styles.page]} style="font-family: 'Inter', sans-serif;">
+    <nav class={styles.nav}>
+      <a href="/" class={styles.wordMark}>
+        <h1 class={styles.wordMarkTitle}>Samuel Swedberg</h1>
+        <span class={styles.wordMarkSubtitle}>Engineer. Creator. Builder.</span>
+      </a>
+
+      <div class={styles.navLinks}>
+        <a href="/projects" class={styles.navLink}>Projects</a>
+        <a href="/about" class:list={[styles.navLink, styles.activeNavLink]}>About</a>
+        <a href={siteLinks.linkedin} class={styles.navLink} target="_blank" rel="noreferrer">Contact</a>
+      </div>
+    </nav>
+
+    <main class={styles.main}>
+      <section class:list={[styles.heroSection, styles.reveal]}>
+        <div class={styles.portraitColumn}>
+          <div class={styles.portraitFrame}>
+            <img
+              src="/media/upscaledlinkedin.png"
+              alt="Samuel Swedberg portrait"
+              class={styles.portraitImage}
+              style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+            />
+          </div>
+        </div>
+
+        <div class={styles.copyColumn}>
+          <h2 class={styles.heroTitle}>
+            Engineer.
+            <br />
+            Creator.
+            <br />
+            <span>Builder.</span>
+          </h2>
+
+          <div class={styles.heroCopy}>
+            <p>
+              I specialize in the gray area between design and deep engineering. Most of my work
+              lives where embedded systems, software, and product thinking have to cooperate to
+              produce something usable in the real world.
+            </p>
+            <p class={styles.heroQuote}>
+              "Engineering is the art of organizing and directing people and controlling the
+              forces and materials of nature for the benefit of humanity."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class:list={[styles.experienceSection, styles.revealDelayed]}>
+        <div class={styles.experienceLabelColumn}>
+          <h3 class={styles.sectionLabel}>Experience</h3>
+        </div>
+
+        <div class={styles.experienceContentColumn}>
+          <div class={styles.timeline}>
+            {experience.map((item, index) => (
+              <div class={styles.timelineItem}>
+                <div
+                  class:list={[styles.gradientDot, index === 0 && styles.featuredGradientDot]}
+                  aria-hidden="true"
+                />
+                <div class={styles.timelineHeader}>
+                  <div class={styles.timelineHeadingBlock}>
+                    <h4 class:list={[index === 0 && styles.featuredTimelineTitle]}>{item.title}</h4>
+                    <p class={styles.timelineCompany}>{item.company}</p>
+                  </div>
+                  <span>{item.years}</span>
+                </div>
+                <p class={styles.timelineMeta}>
+                  {item.type} · {item.location}
+                </p>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class={styles.focusAreaBlock}>
+            <h3 class={styles.sectionLabel}>Education</h3>
+            <div class={styles.educationCard}>
+              <h4>{education.school}</h4>
+              <p class={styles.educationDegree}>{education.degree}</p>
+              <p class={styles.educationYears}>{education.years}</p>
+              <p class={styles.educationDetail}>{education.detail}</p>
+            </div>
+          </div>
+
+          <div class={styles.focusAreaBlock}>
+            <h3 class={styles.sectionLabel}>Focus Areas</h3>
+            <ul class={styles.focusAreaList}>
+              {focusAreas.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class={styles.tickerSection}>
+        <div class={styles.tickerWrapper}>
+          <div class={styles.tickerTrack}>
+            {tickerTools.map((tool, index) => (
+              <span class={styles.tickerItem}>{tool}</span>
+            ))}
+          </div>
+
+          <div class={styles.tickerTrack} aria-hidden="true">
+            {tickerTools.map((tool, index) => (
+              <span class={styles.tickerItem}>{tool}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class={styles.contactSection}>
+        <p class={styles.contactLabel}>Get in touch</p>
+        <div class={styles.contactLinks}>
+          <a href={siteLinks.github} target="_blank" rel="noreferrer" class={styles.contactLink}>
+            <span>GitHub</span>
+            <span class={styles.contactArrow}>↗</span>
+          </a>
+          <a href={siteLinks.linkedin} target="_blank" rel="noreferrer" class={styles.contactLink}>
+            <span>LinkedIn</span>
+            <span class={styles.contactArrow}>↗</span>
+          </a>
+          <a href={siteLinks.email} class={styles.contactLink}>
+            <span>Email</span>
+            <span class={styles.contactArrow}>↗</span>
+          </a>
+        </div>
+      </section>
+
+      <footer class={styles.footer}>
+        <span>2026 Samuel Swedberg</span>
+        <a href="/projects" class={styles.footerLinks}>Projects</a>
+      </footer>
+    </main>
+  </div>
+</BaseLayout>

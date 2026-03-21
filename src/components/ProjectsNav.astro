@@ -1,0 +1,38 @@
+---
+import { siteLinks } from "@/lib/site-data"
+import { cn } from "@/lib/utils"
+import styles from "@/styles/projects.module.css"
+
+interface Props {
+  currentPath: string
+}
+
+const { currentPath } = Astro.props
+const isProjectsIndex = currentPath === "/projects" || currentPath === "/projects/"
+---
+
+<nav class={styles.nav}>
+  <a href="/" class={styles.wordMark}>
+    <span class={styles.navLabel}>Samuel Swedberg</span>
+    <span class={styles.navSubLabel}>Engineer. Creator. Builder.</span>
+  </a>
+
+  <div class={styles.navGroup}>
+    <div class={styles.navRow}>
+      <a href="/projects" class={cn(styles.navLink, styles.navLinkActive)}>
+        Projects
+      </a>
+      <a href="/about" class={styles.navLink}>
+        About
+      </a>
+      <a
+        href={siteLinks.linkedin}
+        class={styles.navLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Contact
+      </a>
+    </div>
+  </div>
+</nav>

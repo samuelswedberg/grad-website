@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import RevolutionHero from "../components/RevolutionHero.astro"
+---
+
+<BaseLayout title="Samuel Swedberg | Embedded Systems Portfolio" immersive>
+  <RevolutionHero
+    eyebrow={["Minimizing the friction between a", "brilliant idea and its physical realization"]}
+    navLinks={[
+      { text: "PROJECTS", href: "/projects", gradient: "linear-gradient(135deg, #ffeedd, #b89a78)" },
+      {
+        text: "SIM SYSTEM",
+        href: "/projects/sim-racing-system",
+        gradient: "linear-gradient(135deg, #ffe4b5 0%, #ffb347 18%, #ff8c00 50%, #ffb347 78%, #ffe4b5 100%)",
+        shimmer: true,
+      },
+      { text: "ABOUT", href: "/about", gradient: "linear-gradient(135deg, #ffeedd, #b89a78)" },
+    ]}
+    siteLabel="samuelswedberg.com"
+  />
+</BaseLayout>
