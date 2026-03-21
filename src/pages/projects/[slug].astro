@@ -76,7 +76,7 @@ const activeSectionLinks = [
             <div class={styles.caseStudyGradient}></div>
             <div class={styles.ctaContent}>
               <span class={styles.ctaDescription}>{project.cta.description}</span>
-              <span class={styles.ctaLabel}>{project.cta.label} ↗</span>
+              <span class={styles.ctaLabel}>{project.cta.label} <i class="ph-bold ph-arrow-up-right"></i></span>
             </div>
           </a>
         ) : (
@@ -124,7 +124,7 @@ const activeSectionLinks = [
                           class={styles.tocExternalLink}
                         >
                           {link.label}
-                          <span class={styles.tocLinkArrow} aria-hidden="true">↗</span>
+                          <i class={`ph-bold ph-arrow-up-right ${styles.tocLinkArrow}`} aria-hidden="true"></i>
                         </a>
                       </li>
                     ))}
