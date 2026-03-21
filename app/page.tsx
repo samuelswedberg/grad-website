@@ -7,15 +7,15 @@ export default function HomePage() {
     <RevolutionHero
       eyebrow={["Minimizing the friction between a", "brilliant idea and its physical realization"]}
       navLinks={[
-        { text: "PROJECTS", href: "/projects", gradient: "linear-gradient(135deg, #ffffff, #cccccc)" },
+        { text: "PROJECTS", href: "/projects", gradient: "linear-gradient(135deg, #ffeedd, #b89a78)" },
         {
           text: "SIM SYSTEM",
           href: "/projects/sim-racing-system",
           gradient:
-            "linear-gradient(135deg, #f7f3ea 0%, #f3e7cf 18%, #e9c98e 50%, #f1ddba 78%, #fbf7ef 100%)",
+            "linear-gradient(135deg, #ffe4b5 0%, #ffb347 18%, #ff8c00 50%, #ffb347 78%, #ffe4b5 100%)",
           shimmer: true,
         },
-        { text: "ABOUT", href: "/about", gradient: "linear-gradient(135deg, #ffffff, #cccccc)" },
+        { text: "ABOUT", href: "/about", gradient: "linear-gradient(135deg, #ffeedd, #b89a78)" },
       ]}
       quoteLines={[
         "Engineer. Creator. Builder.",
@@ -27,7 +27,7 @@ export default function HomePage() {
             href="https://rideforge.app"
             target="_blank"
             rel="noreferrer"
-            className="hero-nav-shimmer inline-block bg-[linear-gradient(90deg,_rgb(244_114_182)_0%,_rgb(34_211_238)_100%)] bg-[length:19ch_100%] bg-center bg-clip-text font-semibold text-transparent"
+            className="hero-nav-shimmer inline-block bg-[linear-gradient(90deg,_rgb(255_139_26)_0%,_rgb(255_179_71)_100%)] bg-[length:19ch_100%] bg-center bg-clip-text font-semibold text-transparent"
           >
             Forge
           </Link>

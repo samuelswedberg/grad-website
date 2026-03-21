@@ -121,15 +121,6 @@ const sectionLinks = [
 export function ProjectsExperience() {
   return (
     <div className={styles.page}>
-      <div className={styles.noiseOverlay} aria-hidden="true" />
-
-      <div className={styles.fluidBg} aria-hidden="true">
-        <div className={cn(styles.fluidBlob, styles.blob1)} />
-        <div className={cn(styles.fluidBlob, styles.blob2)} />
-        <div className={cn(styles.fluidBlob, styles.blob3)} />
-        <div className={cn(styles.fluidBlob, styles.blob4)} />
-      </div>
-
       <nav className={styles.nav}>
         <Link href="/" className={styles.wordMark}>
           <span className={styles.navLabel}>Samuel Swedberg</span>

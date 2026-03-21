@@ -1,14 +1,11 @@
 .page {
-  --color-bg: #030305;
-  --color-text: #ffffff;
-  --color-accent: #e8d5b5;
+  --color-bg: transparent;
+  --color-text: var(--color-ink);
+  --color-accent: #ffb347;
   position: relative;
   min-height: 100vh;
   overflow-x: clip;
-  background:
-    radial-gradient(circle at top left, rgba(126, 34, 206, 0.1), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 24%),
-    var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
 }
@@ -19,69 +16,6 @@
   letter-spacing: -0.04em;
 }
 
-.noiseOverlay {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  opacity: 0.08;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
-.fluidBg {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.fluidBlob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
-  opacity: 0.6;
-  animation: drift 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-.blob1 {
-  top: -10%;
-  left: -10%;
-  height: 50vw;
-  width: 50vw;
-  background: radial-gradient(circle, #7e22ce 0%, transparent 70%);
-  animation-delay: 0s;
-}
-
-.blob2 {
-  right: -10%;
-  bottom: -10%;
-  height: 40vw;
-  width: 40vw;
-  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
-  animation-delay: -5s;
-}
-
-.blob3 {
-  top: 40%;
-  left: 40%;
-  height: 30vw;
-  width: 30vw;
-  background: radial-gradient(circle, #ec4899 0%, transparent 70%);
-  animation-delay: -10s;
-}
-
-.blob4 {
-  bottom: 20%;
-  left: 10%;
-  height: 25vw;
-  width: 25vw;
-  background: radial-gradient(circle, #f97316 0%, transparent 70%);
-  animation-delay: -15s;
-  mix-blend-mode: screen;
-}
 
 .nav {
   position: relative;
@@ -627,20 +561,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes drift {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  50% {
-    transform: translate(30px, -30px) scale(1.1);
-  }
-
-  100% {
-    transform: translate(-20px, 40px) scale(0.95);
   }
 }
 

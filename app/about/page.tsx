@@ -59,12 +59,6 @@ const tickerTools = [...tools, "React", "Rust", ...tools, "React", "Rust"]
 export default function AboutPage() {
   return (
     <div className={`${inter.className} ${styles.page}`}>
-      <div className={styles.noiseOverlay} aria-hidden="true" />
-      <div className={styles.fluidBg} aria-hidden="true">
-        <div className={`${styles.fluidBlob} ${styles.blob1}`} />
-        <div className={`${styles.fluidBlob} ${styles.blob2}`} />
-      </div>
-
       <nav className={styles.nav}>
         <Link href="/" className={styles.wordMark}>
           <h1 className={styles.wordMarkTitle}>Samuel Swedberg</h1>
